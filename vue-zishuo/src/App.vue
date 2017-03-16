@@ -1,25 +1,11 @@
 <template>
-  <div>
-    <splash v-on:afterLeave="toFilms"></splash>
-    <div class="search-box">
-      <div class="search-input">
-        <el-input
-          placeholder="请输入台词"
-          icon="close"
-          v-model="searchText"
-          :on-icon-click="clearSearchText">
-        </el-input>
-      </div>
-      <div class="search-button">
-        <el-button type="primary" v-on:click.native="toFilms">搜索一下</el-button>
-      </div>
-    </div>
-    <router-view></router-view>
+  <div id="appvue">
+    <main-page></main-page>
   </div>
 </template>
 
 <script>
-  import splash from './components/SplashTitle.vue'
+  import MainPage from './components/MainPage.vue'
   export default {
     name: 'app',
     data: function () {
@@ -28,7 +14,7 @@
       }
     },
     components: {
-      splash
+      MainPage
     },
     methods: {
       toFilms () {
