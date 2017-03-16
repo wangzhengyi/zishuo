@@ -1,20 +1,16 @@
 <template>
   <div id="appvue">
-    <main-page></main-page>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import MainPage from './components/MainPage.vue'
   export default {
     name: 'app',
     data: function () {
       return {
         searchText: ''
       }
-    },
-    components: {
-      MainPage
     },
     methods: {
       toFilms () {

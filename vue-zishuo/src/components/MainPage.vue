@@ -1,22 +1,22 @@
 <template>
-  <div id="box" style="width:100%;height:auto">
-    <div id="header">
-      <div id="logo">
+  <div class="box">
+    <div class="header">
+      <div class="logo">
           <p class="threed">字说</p>
       </div>
     </div>
-    <div id="container">
-      <div id="front-info">
-        <img id="front-img" alt="字说" src="../assets/img/wolf_children1.jpg" />
+    <div class="container">
+      <div class="front-info">
+        <img class="front-img" alt="字说" src="../assets/img/wolf_children1.jpg" />
       </div>
       <div class="row-space"></div>
-      <div id="search-input">
+      <div class="search-input">
         <el-input placeholder="请输入台词" icon="close" v-model="searchText"
           :on-icon-click="clearSearchText" @keyup.enter.native="toSearchPage">
         </el-input>
       </div>
       <div class="row-space"></div>
-      <div id="search-button">
+      <div class="search-button">
         <el-button id="submit-btn" type="primary" 
           v-on:click.native="toSearchPage">Search</el-button>
       </div>
@@ -48,14 +48,16 @@
 </script>
 
 <style scoped>
-#box {
+.box {
+  width: 100%;
+  height: auto;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-#header {
+.header {
   width: 100%;
   height: 150px;
   align-items: flex-end;
@@ -65,7 +67,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-#logo {
+.logo {
   margin-right: 40px;
 }
 .threed{
@@ -74,7 +76,7 @@
   letter-spacing: 0;
   text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135
 }
-#container {
+.container {
   height: 485px;
   width: 100%;
   align-items: center;
@@ -84,7 +86,7 @@
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-#front-info {
+.front-info {
   max-width: 400px;
   max-height: 230px;
   width: 100%;
@@ -93,19 +95,19 @@
   display: flex;
   justify-content: center;
 }
-#front-img {
+.front-img {
   width: 100%;
   height: auto;
   border-radius: 20px 50px;
 }
-#search-input {
+.search-input {
   display: -webkit-flex;
   display: flex;
   justify-content: center;
   width: 100%;
   max-width: 600px;
 }
-#search-button {
+.search-button {
   display: -webkit-flex;
   display: flex;
   justify-content: center;
@@ -118,5 +120,48 @@
 }
 #submit-btn {
   flex-basis: 120px;
+}
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 </style>
