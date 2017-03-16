@@ -1,6 +1,7 @@
 import axios from 'axios'
 // 使用代理
 const HOST = '/api/'
+const GANK_HOST = '/gank/'
 
 export const API_TYPE = {
   movie: {
@@ -12,6 +13,15 @@ export const API_TYPE = {
 export function fetch (url) {
   return new Promise((resolve, reject) => {
     axios.get(HOST + url)
+      .then(response => {
+        resolve(response.data)
+      })
+  })
+}
+
+export function gankfetch (url) {
+  return new Promise((resolve, reject) => {
+    axios.get(url)
       .then(response => {
         resolve(response.data)
       })
@@ -33,4 +43,9 @@ export function fetchMovieById (id) {
 export function fetchSearchMovies (query, start = 0) {
   let url = encodeURI(`/movie/search?q=${query}&start=${start}`)
   return fetch(url)
+}
+
+export function fetchNewsLatest (page, limit) {
+  let url = GANK_HOST + 'api/data/Android/' + limit + '/' + page
+  return gankfetch(url)
 }

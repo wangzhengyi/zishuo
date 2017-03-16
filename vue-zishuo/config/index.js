@@ -34,6 +34,13 @@ module.exports = {
         pathRewrite: {
           '^/api': ''
         }
+      },
+      '/gank': {
+        target: 'http://gank.io',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/gank': ''
+        }
       }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
