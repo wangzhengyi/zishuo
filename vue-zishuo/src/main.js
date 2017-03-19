@@ -8,6 +8,8 @@ import 'element-ui/lib/theme-default/index.css'
 import store from './store'
 import MainPage from './components/MainPage.vue'
 import SearchPage from './components/SearchPage.vue'
+import SmallMoviePage from './components/SmallMoviePage.vue'
+import BigMoviePage from './components/BigMoviePage.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -17,7 +19,22 @@ const router = new VueRouter({
   routes: [
     {path: '/', component: MainPage},
     {path: '', component: MainPage},
-    {path: '/search/:search', component: SearchPage},
+    {
+      path: '/search/:search',
+      component: SearchPage,
+      children: [
+        {
+          path: 'small',
+          name: 'small',
+          component: SmallMoviePage
+        },
+        {
+          path: 'big',
+          name: 'big',
+          component: BigMoviePage
+        }
+      ]
+    },
     {path: '*', component: MainPage}
   ]
 })

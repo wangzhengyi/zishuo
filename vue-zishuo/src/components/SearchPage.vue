@@ -1,28 +1,26 @@
 <template>
   <div class="box">
     <div class="main-form">
-      <p class="logo-div special-text" v-on:click="goMainPage">字说</p>
-      <el-input class="search-input" placeholder="请输入台词" icon="close" v-model="word" :on-icon-click="clearSearchWord"
-                @keyup.enter.native="searchMovies">
-      </el-input>
-      <div class="search-button">
-        <el-button id="submit-btn" type="primary"
-                   v-on:click.native="searchMovies">Search
-        </el-button>
+      <div class="main-form-info">
+        <p class="logo-div special-text" v-on:click="goMainPage">字说</p>
+        <el-input class="search-input" placeholder="请输入台词" icon="close" v-model="word" :on-icon-click="clearSearchWord"
+                  @keyup.enter.native="searchMovies">
+        </el-input>
+        <div class="search-button">
+          <el-button id="submit-btn" type="primary"
+                     v-on:click.native="searchMovies">Search
+          </el-button>
+        </div>
       </div>
+      <el-radio-group v-model="mode" class="main-form-radio">
+        <el-radio-button label="Small"></el-radio-button>
+        <el-radio-button label="Big"></el-radio-button>
+      </el-radio-group>
     </div>
 
     <div class="main-panel">
-      <el-row justify="space-around" :gutter="10">
-        <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="movie in movies.value">
-          <div class="movie-content">
-            <img class="movie-img" v-bind:src="movie.small" />
-            <p class="movie-title">{{movie.name}}</p>
-          </div>
-        </el-col>
-      </el-row>
+      <router-view v-bind:movies="movies"></router-view>
     </div>
-
 
     <div class="footer-page">
       <el-pagination
@@ -48,15 +46,33 @@
         limit: 9,
         total: 0,
         word: '',
-        loading: false
+        loading: false,
+        mode: 'Small'
       }
     },
     created () {
       this.searchMovies()
+      this.goMovieDisplayPage()
+    },
+    watch: {
+      mode: function (value) {
+        if (value === 'Small') {
+          this.$router.push({name: 'small'})
+        } else {
+          this.$router.push({name: 'big'})
+        }
+      }
     },
     methods: {
       goMainPage () {
         this.$router.push({path: '/'})
+      },
+      goMovieDisplayPage () {
+        if (this.mode === 'Small') {
+          this.$router.push({name: 'small'})
+        } else {
+          this.$router.push({name: 'big'})
+        }
       },
       searchMovies () {
         if (this.word === '') {
@@ -106,16 +122,24 @@
   .main-form {
     display: -webkit-flex;
     display: flex;
+    justify-content: space-between;
     height: auto;
     margin-bottom: 20px;
     background-color: #f6f6f6;
     padding: 15px;
   }
 
+  .main-form-info {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: flex-start;
+    flex: 1;
+  }
+
   .logo-div {
     height: 35px;
     width: 70px;
-    white-space:nowrap;
+    white-space: nowrap;
     cursor: pointer;
   }
 
@@ -141,33 +165,6 @@
 
   .main-panel {
     flex: 1;
-  }
-
-  .movie-content {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-  }
-
-  .movie-img {
-    height: 230px;
-    width: 307px;
-  }
-
-  .movie-title {
-    height: 28px;
-    max-width: 307px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
-    font-size: 14px;
-    color: #1D8CE0;
-    word-break: keep-all;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 
   .footer-page {
