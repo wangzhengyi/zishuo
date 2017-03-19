@@ -1,7 +1,7 @@
 import axios from 'axios'
 // 使用代理
-const HOST = '/api/'
-// const REAL_HOST = 'http://114.215.16.181:9000/'
+// const HOST = '/api/'
+const HOST = 'http://114.215.16.181:9000/'
 
 export function fetch (url) {
   console.log(`url=${HOST}${url}`)
