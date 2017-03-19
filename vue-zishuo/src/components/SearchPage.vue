@@ -2,45 +2,27 @@
   <div class="box">
     <div class="main-form">
       <p class="logo-div special-text">字说</p>
-      <div class="column-space"></div>
-      <el-input class="search-input" placeholder="请输入台词" icon="close" v-model="word" :on-icon-click="clearSearchWord" @keyup.enter.native="get">
+      <el-input class="search-input" placeholder="请输入台词" icon="close" v-model="word" :on-icon-click="clearSearchWord"
+                @keyup.enter.native="searchMovies">
       </el-input>
-      <div class="column-space"></div>
       <div class="search-button">
         <el-button id="submit-btn" type="primary"
-          v-on:click.native="get">Search</el-button>
+                   v-on:click.native="searchMovies">Search
+        </el-button>
       </div>
     </div>
 
     <div class="main-panel">
-
-    <el-row justify="space-around">
-      <el-col :span="8" v-for="fmovie in firstRawMovies">
-        <div class="movie-content">
-          <img class="movie-img" v-bind:src="fmovie.small" />
-          <p class="movie-title">{{fmovie.name}}</p>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row>
-      <el-col :span="8" v-for="smovie in secondRawMovies">
-        <div class="movie-content">
-          <img class="movie-img" v-bind:src="smovie.small" />
-          <p class="movie-title">{{smovie.name}}</p>
-        </div>
-      </el-col>
-    </el-row>
-
-    <el-row>
-      <el-col :span="8" v-for="tmovie in thirdRawMovies">
-        <div class="movie-content">
-          <img class="movie-img" v-bind:src="tmovie.small" />
-          <p class="movie-title">{{tmovie.name}}</p>
-        </div>
-      </el-col>
-    </el-row>
+      <el-row justify="space-around" :gutter="10">
+        <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="movie in movies.value">
+          <div class="movie-content">
+            <img class="movie-img" v-bind:src="movie.small" />
+            <p class="movie-title">{{movie.name}}</p>
+          </div>
+        </el-col>
+      </el-row>
     </div>
+
 
     <div class="footer-page">
       <el-pagination
@@ -62,48 +44,26 @@
     data: function () {
       return {
         page: 1,
-        movies: {
-        },
+        movies: {},
         limit: 9,
         total: 0,
         word: '',
-        loading: false,
-        firstRawMovies: {
-
-        },
-        secondRawMovies: {
-
-        },
-        thirdRawMovies: {
-
-        }
+        loading: false
       }
     },
     created () {
-      this.get()
+      this.searchMovies()
     },
     methods: {
-      get () {
+      searchMovies () {
         if (this.word === '') {
           this.word = this.$route.params.search
         }
-        this.loading = true
-        searchMoviesByWord(this.word, this.page, this.limit)
-          .then((data) => {
-            console.log(data.results)
-            this.processServerData(data)
-            this.loading = false
-          })
-      },
-      next () {
-        this.page++
+        this.fetchServerData()
       },
       handleCurrentChange (val) {
         this.page = val
-        searchMoviesByWord(this.word, this.page, this.limit)
-          .then((data) => {
-            this.processServerData(data)
-          })
+        this.fetchServerData()
       },
       handleSizeChange (val) {
         console.log('size is changed! val=' + val)
@@ -111,26 +71,19 @@
       clearSearchWord () {
         this.word = ''
       },
+      fetchServerData () {
+        console.log('fetch server data')
+        this.loading = true
+        let start = (this.page - 1) * this.limit
+        searchMoviesByWord(this.word, start, this.limit)
+          .then((data) => {
+            this.processServerData(data)
+            this.loading = false
+          })
+      },
       processServerData (data) {
         this.total = data.total
-        this.movies.subjects = data.value
-        this.firstRawMovies = []
-        this.secondRawMovies = []
-        this.thirdRawMovies = []
-        for (let i = 0, len = this.movies.subjects.length; i < len; i++) {
-          if (i < 3) {
-            this.firstRawMovies.push(this.movies.subjects[i])
-          } else if (i < 6) {
-            this.secondRawMovies.push(this.movies.subjects[i])
-          } else {
-            this.thirdRawMovies.push(this.movies.subjects[i])
-          }
-        }
-      }
-    },
-    watch: {
-      page (val) {
-        this.get()
+        this.movies = data
       }
     }
   }
@@ -138,6 +91,7 @@
 
 <style scoped>
   @import "../assets/css/reset.css";
+
   .box {
     width: 100%;
     height: auto;
@@ -149,30 +103,32 @@
   .main-form {
     display: -webkit-flex;
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     height: auto;
     margin-bottom: 20px;
     background-color: #f6f6f6;
     padding: 15px;
   }
+
   .logo-div {
     height: 35px;
     width: 70px;
+    white-space:nowrap;
   }
+
   .search-input {
-    width: 590px;
+    width: 70%;
+    max-width: 590px;
     height: 35px;
+    margin-left: 1%;
+    margin-right: 1%;
   }
+
   .search-button {
     width: 120px;
     height: 35px;
   }
-  .column-space {
-    width: 1%;
-    height: 1px;
-  }
-  .special-text{
+
+  .special-text {
     color: #20A0FF;
     font-size: 30px;
     letter-spacing: 0;
@@ -188,7 +144,7 @@
     display: -webkit-flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
   }
 
   .movie-img {
@@ -200,13 +156,13 @@
     height: 28px;
     max-width: 307px;
     white-space: nowrap;
-    text-overflow:ellipsis;
-    -o-text-overflow:ellipsis;
-    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
     font-size: 14px;
     color: #1D8CE0;
-    word-break:keep-all;
-    text-overflow:ellipsis;
+    word-break: keep-all;
+    text-overflow: ellipsis;
     overflow: hidden;
   }
 
