@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="main-form">
-      <p class="logo-div special-text">字说</p>
+      <p class="logo-div special-text" v-on:click="goMainPage">字说</p>
       <el-input class="search-input" placeholder="请输入台词" icon="close" v-model="word" :on-icon-click="clearSearchWord"
                 @keyup.enter.native="searchMovies">
       </el-input>
@@ -55,6 +55,9 @@
       this.searchMovies()
     },
     methods: {
+      goMainPage () {
+        this.$router.push({path: '/'})
+      },
       searchMovies () {
         if (this.word === '') {
           this.word = this.$route.params.search
@@ -113,6 +116,7 @@
     height: 35px;
     width: 70px;
     white-space:nowrap;
+    cursor: pointer;
   }
 
   .search-input {
