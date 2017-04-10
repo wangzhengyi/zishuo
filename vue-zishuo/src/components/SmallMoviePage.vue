@@ -1,11 +1,27 @@
 <template>
-  <el-row justify="space-around" :gutter="10">
-    <el-col :xs="24" :sm="12" :md="8" :lg="8" v-for="(movie,index) in movies.value">
-      <div class="movie-content">
-        <img class="movie-small-img" v-bind:src="movie.small"/>
+  <div class="wrap_card">
+    <div v-for="(v,i) in new Array(Math.ceil(movies.value.length/3))" class="columns">
+      <div v-for="(movie,index) in movies.value.slice(i*3, (i+1)*3)" class="column is-one-third">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image">
+              <img :src="movie.small">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+              <div class="media-content">
+                <p class="title is-4">{{movie.name}}</p>
+              </div>
+            </div>
+            <div class="content">
+              {{movie.srt}}
+            </div>
+          </div>
+        </div>
       </div>
-    </el-col>
-  </el-row>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,18 +32,10 @@
 
 </script>
 
-<style scoped>
-  .movie-small-img {
-    height: 230px;
-    width: 307px;
-  }
-
-  .movie-content {
-    display: flex;
-    display: -webkit-flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 15px;
+<style lang="scss" scoped>
+  .wrap_card {
+    padding: 1.2rem 0.1em 0.1em;
+    overflow: hidden;
+    width: 100%
   }
 </style>
