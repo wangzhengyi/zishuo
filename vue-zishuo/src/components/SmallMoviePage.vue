@@ -32,7 +32,8 @@
     methods: {
       goMovieDetail (index, movie) {
         this.$router.push({name: 'movie'})
-        Bus.$emit('loadMovie', index, movie)
+        Bus.movie = movie
+        Bus.index = index
       }
     }
   }

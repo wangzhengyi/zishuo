@@ -24,10 +24,10 @@
           </div>
           <div class="column is-6 is-offset-1">
             <h1 class="title is-2">
-              {{ movieName }}
+              {{ movie.name }}
             </h1>
             <h2 class="subtitle is-4">
-              {{movie.srt}}
+              {{ movie.srt }}
             </h2>
             <br>
             <p class="has-text-centered">
@@ -48,35 +48,26 @@
     name: 'MovieDetail',
     data: function () {
       return {
-        movie: {},
+        movie: {
+          name: 'aaa',
+          srt: 'bbb'
+        },
         index: 110
       }
     },
     methods: {
       downloadPic () {
-        console.log('name=' + this.movieName)
-      },
-      setMovie (movie) {
-        this.movie = movie
-      },
-      setIndex (index) {
-        this.index = index
+        let link = document.createElement('a')
+        link.download = this.movie.name
+        link.href = this.movie.big
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
       }
     },
-    created () {
-      Bus.$on('loadMovie', (index, movie) => {
-        console.log('index=' + this.index + ', movie=' + this.movie)
-        this.setMovie(movie)
-        this.setIndex(index)
-        console.log('movie name=' + this.movie.name)
-      })
-    },
-    computed: {
-      movieName: function () {
-        if (this.movie) {
-          return this.movie.name
-        }
-      }
+    created: function () {
+      this.movie = Bus.movie
+      this.index = Bus.index
     }
   }
 </script>
