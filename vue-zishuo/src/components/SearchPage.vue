@@ -12,10 +12,6 @@
           </el-button>
         </div>
       </div>
-      <el-radio-group v-model="mode" class="main-form-radio">
-        <el-radio-button label="Small"></el-radio-button>
-        <el-radio-button label="Big"></el-radio-button>
-      </el-radio-group>
     </div>
 
     <div class="main-panel">
@@ -110,7 +106,7 @@
 
 <style scoped>
   @import "../assets/css/reset.css";
-
+  @import "~bulma";
   .box {
     width: 100%;
     height: auto;

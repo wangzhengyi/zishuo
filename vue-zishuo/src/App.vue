@@ -28,15 +28,10 @@
 </script>
 
 <style lang="scss">
-  @import "~bulma";
   #appvue {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
-  }
-  body {
-    padding-top: 55px;
-    background-color: #f4f4f4;
   }
 </style>

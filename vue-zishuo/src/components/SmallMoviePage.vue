@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap_card">
+  <div class="container section">
     <div v-for="(v,i) in new Array(Math.ceil(movies.value.length/3))" class="columns">
       <div v-for="(movie,index) in movies.value.slice(i*3, (i+1)*3)" class="column is-one-third">
         <div class="card">
@@ -33,6 +33,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "~bulma";
   .wrap_card {
     padding: 1.2rem 0.1em 0.1em;
     overflow: hidden;
