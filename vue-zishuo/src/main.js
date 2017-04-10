@@ -10,6 +10,7 @@ import MainPage from './components/MainPage.vue'
 import SearchPage from './components/SearchPage.vue'
 import SmallMoviePage from './components/SmallMoviePage.vue'
 import BigMoviePage from './components/BigMoviePage.vue'
+import MovieDeatail from './components/MovieDetail.vue'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter)
@@ -35,6 +36,7 @@ const router = new VueRouter({
         }
       ]
     },
+    {path: '/movie', name: 'movie', component: MovieDeatail},
     {path: '*', component: MainPage}
   ]
 })

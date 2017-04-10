@@ -2,7 +2,7 @@
   <div class="container section">
     <div v-for="(v,i) in new Array(Math.ceil(movies.value.length/3))" class="columns">
       <div v-for="(movie,index) in movies.value.slice(i*3, (i+1)*3)" class="column is-one-third">
-        <div class="card">
+        <div class="card" v-on:click="goMovieDetail(index + i * 3, movie)">
           <div class="card-image">
             <figure class="image">
               <img :src="movie.small">
@@ -25,9 +25,16 @@
 </template>
 
 <script>
+  import Bus from '../bus.js'
   export default {
     name: 'SmallMoviePage',
-    props: ['movies']
+    props: ['movies'],
+    methods: {
+      goMovieDetail (index, movie) {
+        this.$router.push({name: 'movie'})
+        Bus.$emit('loadMovie', index, movie)
+      }
+    }
   }
 
 </script>
