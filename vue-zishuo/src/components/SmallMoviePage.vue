@@ -1,7 +1,7 @@
 <template>
   <div class="container section">
-    <div v-for="(v,i) in new Array(Math.ceil(movies.value.length/3))" class="columns">
-      <div v-for="(movie,index) in movies.value.slice(i*3, (i+1)*3)" class="column is-one-third">
+    <div v-for="(v,i) in new Array(Math.ceil(movies.length/3))" class="columns">
+      <div v-for="(movie,index) in movies.slice(i*3, (i+1)*3)" class="column is-one-third">
         <div class="card" v-on:click="goMovieDetail(index + i * 3, movie)">
           <div class="card-image">
             <figure class="image">
