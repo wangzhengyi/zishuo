@@ -12,7 +12,7 @@
       <router-view v-bind:movies="movies"></router-view>
     </div>
 
-    <div class="pagination-container">
+    <div class="pagination-container" v-if="total > 0">
       <mu-pagination :total="total" :current="page" :pageSize="limit" :defaultPageSize="limit" @pageChange="handlePagination">
       </mu-pagination>
     </div>
@@ -42,11 +42,7 @@
         this.$router.push({path: '/'})
       },
       goMovieDisplayPage () {
-        if (this.mode === 'Small') {
-          this.$router.push({name: 'small'})
-        } else {
-          this.$router.push({name: 'big'})
-        }
+        this.$router.push({name: 'small'})
       },
       searchMovies () {
         if (this.word === '') {
@@ -61,6 +57,7 @@
         }
       },
       fetchServerData () {
+        console.log('search movie data')
         this.loading = true
         let start = (this.page - 1) * this.limit
         searchMoviesByWord(this.word, start, this.limit)
